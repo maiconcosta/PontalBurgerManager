@@ -1,0 +1,32 @@
+.itemsContainer {
+    width: 100%;
+    max-width: 1100px;
+}
+
+.itemsContainer header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.itemsContainer ul {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    list-style: none;
+}
+
+.itemsContainer ul li { 
+    background: #fff;    
+    padding: 24px;
+    border-radius: 8px;
+    position: relative;
+    line-height: 1.2rem;
+    box-shadow: 4px 4px 6px rgb(202, 202, 202);
+    transition-duration: 0.5s;
+}
+
+.itemsContainer ul li:hover {
+    box-shadow: 2px 2px 10px rgb(134, 134, 134);
+}

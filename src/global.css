@@ -20,3 +20,34 @@ input, button, textarea {
 button {
     cursor: pointer;
 }
+
+.newButton {
+    background: rgb(49, 49, 49);
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    border: 0;
+    transition-duration: 0.2s;
+    box-shadow: 2px 2px 6px rgb(82, 82, 82);  
+    font-weight: bold;
+}
+
+.newButton:hover {
+    opacity: 0.9;
+    box-shadow: 2px 2px 10px rgb(134, 134, 134);
+}
+
+.insertButton {
+    background: rgb(49, 49, 49);
+    color: #fff;
+    padding: 10px;  
+    border: 0;
+    transition-duration: 0.2s;
+    box-shadow: 2px 2px 6px rgb(82, 82, 82);  
+    font-weight: bold;
+}
+
+.insertButton:hover {
+    opacity: 0.9;
+    box-shadow: 2px 2px 10px rgb(134, 134, 134);
+}

@@ -1,0 +1,27 @@
+.newItemContainer{
+    width: 100%;
+    max-width: 1100px;
+}
+
+.newItemContainer .contentForm {
+    width: 50%;
+    margin: 20px 0;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 4px 4px 6px rgb(202, 202, 202);
+}
+
+.newItemContainer form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.newItemContainer input, select {
+    margin-bottom: 10px;
+}
+
+.newItemContainer .value{
+    width: 100%;
+    max-width: 100px;   
+}

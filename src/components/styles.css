@@ -1,40 +1,59 @@
 .baseContainer {
-    display: flex;
-    flex-direction: row;
+    width: 100%;;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
 }
 
-.side {
-    width: 20%;
-    height: 100vh;
+.side {     
+    width: 230px;  
     background: #212121;
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
+}
+
+.sidebarContainer {
+    position: fixed;
+    background: inherit;
+    width: 230px;
+    height: 100vh;
 }
 
 .logo {
     width: 100%;
     max-width: 230px;
-    padding: 20px;
+    padding: 25px;   
 }
 
-.menu {
-    margin-top: 20px;
+.menu {    
     display: flex;
     flex-direction: column;   
     color: #fff;
 }
 
 .menu a {
-    padding: 10px;
+    padding: 10px 30px;
     color: #fff;
     text-decoration: none;
+    display: flex;
 }
+
 .menu a:hover{
     width: 100%;
     background: #a7a7a7;
 }
 
-.content {
-    padding: 20px;
+.menu i {
+    padding-right: 8px;
+}
+
+.content {   
+    padding: 20px;   
+}
+
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
 }

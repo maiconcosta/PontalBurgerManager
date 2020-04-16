@@ -1,7 +1,7 @@
 # Pontal Burger Manager
 > Gerenciador de Pedidos da Hamburgueria Pontal Burger
 
-Trata-se de um dashboard onde permite o usuário ter um relatório completo da hamburgueria,sobre quantos pedidos foram realizados em determinados períodos, dias em que tem mais entregas, localidades e quantidade de clientes. Também permite controlar os pedidos e gerenciar os produtos.
+Trata-se de um dashboard onde permite o usuário ter um relatório completo da hamburgueria, sobre quantos pedidos foram realizados em determinados períodos, dias em que tem mais entregas, localidades e quantidade de clientes. Também permite controlar os pedidos e gerenciar os produtos.
 
 ## Demosntração
 
@@ -12,11 +12,10 @@ git clone https://github.com/maiconcosta/PontalBurgerManager
 
 ```
 
-Após clonar o repositório execute:
+Após clonar o repositório execute o comando abaixo para instalar as dependências necessárias:
 ```
 npm install
 ```
-Para instalar todas as dependências necessárias.
 
 Para executar basta digitar:
 ```

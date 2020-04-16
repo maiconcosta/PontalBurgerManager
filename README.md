@@ -3,7 +3,7 @@
 
 Trata-se de um dashboard onde permite o usuário ter um relatório completo da hamburgueria, sobre quantos pedidos foram realizados em determinados períodos, dias em que tem mais entregas, localidades e quantidade de clientes. Também permite controlar os pedidos e gerenciar os produtos.
 
-## Demosntração
+## Demonstração
 
 Clone o repositório:
 

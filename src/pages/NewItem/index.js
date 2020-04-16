@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { Button, MenuItem, TextField } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,27 +9,21 @@ import './styles.css';
 
 import api from '../../services/api';
 
-const categories = [
-    {
-        id: 1,
-        name: 'Burgers',
-    },
-    {
-        id: 2,
-        name: 'Açaí',
-    },
-    {
-        id: 3,
-        name: 'Fritas',
-    }
-];
-
 export default function NewItem() {
     const [name, setName] = useState('');
     const [categorieId, setCategorieId] = useState('');
     const [value, setValue] = useState('');
 
     const history = useHistory();
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        api.get('categories', {
+        }).then(response => {
+            setCategories(response.data);
+        })
+    }, []);
 
     async function handleNewItem(e) {
         e.preventDefault();
@@ -37,7 +32,7 @@ export default function NewItem() {
             name,
             categorieId,
             value
-        };       
+        };
 
         try {
             await api.post('item', data, {});

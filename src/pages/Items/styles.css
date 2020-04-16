@@ -29,4 +29,5 @@
 
 .itemsContainer ul li:hover {
     box-shadow: 2px 2px 10px rgb(134, 134, 134);
+    cursor: pointer;
 }

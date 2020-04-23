@@ -11,6 +11,7 @@ import api from '../../services/api';
 
 export default function NewItem() {
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     const [categorieId, setCategorieId] = useState('');
     const [value, setValue] = useState('');
 
@@ -30,6 +31,7 @@ export default function NewItem() {
 
         const data = {
             name,
+            description,
             categorieId,
             value
         };
@@ -76,14 +78,26 @@ export default function NewItem() {
                     <TextField
                         id="standard-basic"
                         label="Nome"
+                        margin="dense"
                         value={name}
                         onChange={e => setName(e.target.value)}
                         required
                     />
 
                     <TextField
+                        id="standard-basic"
+                        label="Descrição"
+                        multiline
+                        margin="dense"
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        required
+                    />
+
+                    <TextField
                         id="standard-select"
                         label="Escolha uma categoria"
+                        margin="dense"
                         select
                         value={categorieId}
                         onChange={e => setCategorieId(e.target.value)}
@@ -100,6 +114,7 @@ export default function NewItem() {
                         className="value"
                         id="standard-basic"
                         label="Valor"
+                        margin="dense"
                         value={value}
                         onChange={e => setValue(e.target.value)}
                     />

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { trackPromise } from 'react-promise-tracker';
 
 import './styles.css';
@@ -21,7 +22,9 @@ export default function Orders() {
         <div className="ordersContainer">
             <header>
                 <h2>Pedidos</h2>
-                <button className="newButton">Novo Pedido</button>
+                <Link to="/pedidos-novo">
+                    <button className="newButton">Novo Pedido</button>
+                </Link>
             </header>
 
             <ul>

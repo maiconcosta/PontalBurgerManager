@@ -6,7 +6,7 @@ import './styles.css';
 
 import api from '../../services/api';
 
-export default function Orders() {
+export default function Orders(props) {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function Orders() {
         <div className="ordersContainer">
             <header>
                 <h2>Pedidos</h2>
-                <Link to="/pedidos-novo">
+                <Link to="/pedidos/novo">
                     <button className="newButton">Novo Pedido</button>
                 </Link>
             </header>
@@ -38,6 +38,8 @@ export default function Orders() {
                 ))}
             </ul>
 
-        </div>
+            {props.children}
+
+        </div>       
     );
 }

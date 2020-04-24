@@ -11,10 +11,12 @@ export default function Routes() {
     return (
         <Switch>
             <Route path="/" exact component={Dashboard} />
-            <Route path="/pedidos" component={Orders} />
-            <Route path="/pedidos-novo" component={NewOrder} />
-            <Route path="/cardapio" component={Items} />
-            <Route path="/cardapio-novo" exact component={NewItem} />
+            
+            <Route exact path="/pedidos" component={Orders} />
+            <Route path="/pedidos/novo" component={NewOrder} />
+            
+            <Route exact path="/cardapio" component={Items} />
+            <Route path="/cardapio/novo" exact component={NewItem} />
         </Switch>
     );
 }

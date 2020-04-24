@@ -22,7 +22,7 @@ export default function Items() {
         <div className="itemsContainer">
             <header>
                 <h2>Cardápio</h2>
-                <Link to="/cardapio-novo">
+                <Link to="/cardapio/novo">
                     <button className="newButton">Novo Item</button>
                 </Link>
             </header>

@@ -6,7 +6,7 @@ import './styles.css';
 
 import api from '../../services/api';
 
-export default function Orders(props) {
+export default function Orders() {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -37,9 +37,6 @@ export default function Orders(props) {
                     </li>
                 ))}
             </ul>
-
-            {props.children}
-
-        </div>       
+        </div>
     );
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, MenuItem, TextField } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './styles.css';
@@ -120,7 +120,6 @@ export default function NewItem() {
                     />
 
                     <Button type="submit" variant="contained" color="primary">Cadastrar</Button>
-                    <ToastContainer />
                 </form>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { usePromiseTracker } from "react-promise-tracker";
+import { ToastContainer } from 'react-toastify';
 
 import GridLoader from 'react-spinners/GridLoader';
 
@@ -37,6 +38,7 @@ export default function Base() {
                     <LoadingIndicator />
                 </div>
             </div>
-        </BrowserRouter>
+            <ToastContainer />
+        </BrowserRouter>        
     );
 }

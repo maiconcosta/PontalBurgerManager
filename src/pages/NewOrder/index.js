@@ -10,7 +10,7 @@ import {
     TextField
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './styles.css';
@@ -76,7 +76,7 @@ export default function NewItem() {
             pauseOnHover: true,
             draggable: true
         });
-    }    
+    }
 
     return (
         <div className="newOrderContainer">
@@ -103,8 +103,7 @@ export default function NewItem() {
                             multiple
                             value={selectedItems}
                             onChange={e => setSelectedItems(e.target.value)}
-                            input={<Input />}
-                        >
+                            input={<Input />}>
                             {items.map((item) => (
                                 <MenuItem key={item.id} value={item.id}>
                                     {item.name}
@@ -124,7 +123,6 @@ export default function NewItem() {
                     />
 
                     <Button type="submit" variant="contained" color="primary">Cadastrar</Button>
-                    <ToastContainer />
                 </form>
             </div>
         </div>

@@ -33,6 +33,11 @@
     max-width: 100px;   
 }
 
+.newOrderContainer .payment{
+    width: 100%;
+    max-width: 200px;   
+}
+
 .newOrderContainer .items{
     margin-top:20px;
     display: grid;
@@ -42,10 +47,6 @@
 
 .observation {
     width: 50%;
-}
-
-.count {
-    width: 30px;
 }
 
 .newOrderContainer button{

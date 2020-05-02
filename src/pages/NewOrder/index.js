@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 
 import {
@@ -9,6 +9,7 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
+    MenuItem,
     TextField
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
@@ -24,11 +25,13 @@ export default function NewItem() {
     const [observation, setObservation] = useState('');
     const [total, setTotal] = useState(0);
     const statusId = 1;
+    const [paymentId, setPaymentId] = useState('');
+    const [payments, setPayments] = useState([]);
 
     const [items, setItems] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
     const [countedSelectedItems, setCountedSelectedItems] = useState([]);
-    
+
     const history = useHistory();
 
     useEffect(() => {
@@ -42,6 +45,13 @@ export default function NewItem() {
         }).catch((err) => {
             console.log(err);
         });
+
+        api.get('payments', {
+        }).then(response => {
+            setPayments(response.data);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     async function handleNewOrder(e) {
@@ -52,6 +62,7 @@ export default function NewItem() {
             observation,
             total,
             statusId,
+            paymentId,
             items: countedSelectedItems
         };
 
@@ -91,7 +102,7 @@ export default function NewItem() {
         setTotal(total + item.value);
     }
 
-    function handleRemoveSelectItem(item) {    
+    function handleRemoveSelectItem(item) {
         const leftoverItems = selectedItems
             .filter(selectedItem => selectedItem.id !== item.id);
 
@@ -113,7 +124,7 @@ export default function NewItem() {
                 value: filterItem.value * selectedItems.filter(item => item.id === filterItem.id).length
             }));
 
-        setCountedSelectedItems(counts);   
+        setCountedSelectedItems(counts);
     }, [selectedItems]);
 
 
@@ -144,10 +155,15 @@ export default function NewItem() {
                                     key={item.id}
                                     onClick={() => handleSelectItem(item)}
                                     button>
-                                    <ListItemText 
+                                    <ListItemText
                                         primary={item.name}
-                                        secondary={item.description}
-                                     />
+                                        secondary={
+                                            <Fragment>
+                                                <p>{item.description}</p>
+                                                <span>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.value)}</span>
+                                            </Fragment>
+                                        }
+                                    />
                                     <ListItemIcon>
                                         <FaPlus />
                                     </ListItemIcon>
@@ -160,7 +176,7 @@ export default function NewItem() {
                                 <ListItem
                                     key={selectedItem.id}
                                     onClick={() => handleRemoveSelectItem(selectedItem)}
-                                    button>                                   
+                                    button>
                                     <ListItemText>{selectedItem.count} {selectedItem.name}</ListItemText>
                                     <ListItemIcon>
                                         <FaMinus />
@@ -192,6 +208,22 @@ export default function NewItem() {
                             startAdornment: <InputAdornment position="start">R$</InputAdornment>
                         }}
                     />
+
+                    <TextField
+                        id="standard-select"
+                        label="Forma de Pagamento"
+                        className="payment"
+                        margin="dense"
+                        select
+                        value={paymentId}
+                        onChange={e => setPaymentId(e.target.value)}
+                        required>
+                        {payments.map((option) => (
+                            <MenuItem key={option.id} value={option.id}>
+                                {option.name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
 
                     <div className="actions">
                         <Button type="submit" variant="contained" color="primary">Cadastrar</Button>

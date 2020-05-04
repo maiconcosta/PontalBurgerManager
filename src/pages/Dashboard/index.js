@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { endOfToday, format, startOfToday } from 'date-fns'
+
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
@@ -32,6 +34,23 @@ const data = [
 ];
 
 export default function Dashboard() {
+   const [count, setCount] = useState(0);
+   const [totalValue, setTotalValue] = useState(0);
+   const [totalItems, setTotalItems] = useState(0);
+   const startDate = format(startOfToday(), 'yyyy/MM/dd HH:mm:ss');
+   const endDate = format(endOfToday(), 'yyyy/MM/dd HH:mm:ss');
+
+    useEffect(() => {
+        api.get(`reports/orders/counts?startDate=${startDate}&endDate=${endDate}`, {
+        }).then(response => {
+            const { count, totalValue, totalItems } = response.data;
+
+            setCount(count);
+            setTotalValue(totalValue);
+            setTotalItems(totalItems);
+        })
+    }, [startDate, endDate]);
+
     return (
         <div className="dashboardContainer">
             <header>
@@ -40,17 +59,17 @@ export default function Dashboard() {
 
             <div className="indicatives">
                 <div className="indicative">
-                    <h3>27</h3>
+                    <h3>{count}</h3>
                     <p>Pedidos</p>
                 </div>
 
                 <div className="indicative">
-                    <h3>63</h3>
+                    <h3>{totalItems}</h3>
                     <p>Itens Vendidos</p>
                 </div>
 
                 <div className="indicative">
-                    <h3>R$ 413,97</h3>
+                    <h3>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalValue)}</h3>
                     <p>Vendas</p>
                 </div>
             </div>

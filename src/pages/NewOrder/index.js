@@ -22,6 +22,7 @@ import api from '../../services/api';
 
 export default function NewOrder() {
     const [locale, setLocale] = useState('');
+    const [internalCode, setInternalCode] = useState('');
     const [observation, setObservation] = useState('');
     const [total, setTotal] = useState(0);
     const statusId = 1;
@@ -36,7 +37,23 @@ export default function NewOrder() {
 
     useEffect(() => {
         requestApiData();
+        setInternalCode(Math.floor(1000 + Math.random() * 9000));
     }, []);
+
+    useEffect(() => {
+        const filterSelectedItems = selectedItems
+            .filter((item, index, array) => array.indexOf(item) === index);
+
+        const counts = filterSelectedItems
+            .map(filterItem => ({
+                id: filterItem.id,
+                count: selectedItems.filter(item => item.id === filterItem.id).length,
+                name: filterItem.name,
+                value: filterItem.value * selectedItems.filter(item => item.id === filterItem.id).length
+            }));
+
+        setCountedSelectedItems(counts);
+    }, [selectedItems]);
 
     async function requestApiData() {
         api.get('items', {
@@ -63,6 +80,7 @@ export default function NewOrder() {
             total,
             statusId,
             paymentId,
+            internalCode,
             items: countedSelectedItems
         };
 
@@ -110,24 +128,6 @@ export default function NewOrder() {
         setTotal(total - item.value);
     }
 
-
-    useEffect(() => {
-        const filterSelectedItems = selectedItems
-            .map(filterItem => filterItem)
-            .filter((item, index, array) => array.indexOf(item) === index);
-
-        const counts = filterSelectedItems
-            .map(filterItem => ({
-                id: filterItem.id,
-                count: selectedItems.filter(item => item.id === filterItem.id).length,
-                name: filterItem.name,
-                value: filterItem.value * selectedItems.filter(item => item.id === filterItem.id).length
-            }));
-
-        setCountedSelectedItems(counts);
-    }, [selectedItems]);
-
-
     return (
         <div className="newOrderContainer">
             <header>
@@ -136,6 +136,16 @@ export default function NewOrder() {
 
             <div className="contentForm">
                 <form onSubmit={handleNewOrder}>
+                    <TextField
+                        id="standard-basic"
+                        label="Código do pedido"
+                        margin="dense"
+                        value={internalCode}
+                        onChange={e => setInternalCode(e.target.value)}
+                        className="locale"
+                        required
+                    />
+
                     <TextField
                         id="standard-basic"
                         label="Local"

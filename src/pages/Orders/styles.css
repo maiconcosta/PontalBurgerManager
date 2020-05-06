@@ -14,11 +14,12 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
-    list-style: none;
+    list-style: none;  
 }
 
 .ordersContainer ul li {
-    background: #fff;    
+    background: #fff;
+    color: #000;
     padding: 24px;
     border-radius: 8px;
     position: relative;
@@ -27,6 +28,11 @@
     transition-duration: 0.5s;
 }
 
+.ordersContainer ul a {
+    text-decoration: none;
+}
+
 .ordersContainer ul li:hover {
     box-shadow: 2px 2px 10px rgb(134, 134, 134);
+    cursor: pointer;
 }

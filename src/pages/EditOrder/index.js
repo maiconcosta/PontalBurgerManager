@@ -25,6 +25,7 @@ export default function EditOrder() {
     const { order } = location.state;
 
     const [locale, setLocale] = useState('');
+    const [internalCode, setInternalCode] = useState('');
     const [observation, setObservation] = useState('');
     const [total, setTotal] = useState(0);
     const [statusId, setStatusId] = useState('');
@@ -32,19 +33,21 @@ export default function EditOrder() {
     const [paymentId, setPaymentId] = useState('');
     const [payments, setPayments] = useState([]);
 
-    const [selectedItems, setSelectedItems] = useState([]);  
+    const [selectedItems, setSelectedItems] = useState([]);
 
     useEffect(() => {
         const {
             items,
+            internalCode,
             locale,
             observation,
             paymentId,
-            statusId, 
+            statusId,
             total
         } = order;
 
         setLocale(locale);
+        setInternalCode(internalCode);
         setObservation(observation);
         setPaymentId(paymentId);
         setStatusId(statusId);
@@ -52,7 +55,7 @@ export default function EditOrder() {
         setSelectedItems(items);
 
         requestApiData();
-    }, [order]);  
+    }, [order]);
 
     async function requestApiData() {
         api.get('payments', {
@@ -78,7 +81,7 @@ export default function EditOrder() {
             observation,
             total,
             statusId,
-            paymentId         
+            paymentId
         };
 
         await api.put(`order/${order.id}`, data, {})
@@ -120,6 +123,16 @@ export default function EditOrder() {
 
             <div className="contentForm">
                 <form onSubmit={handleEditOrder}>
+                    <TextField
+                        id="standard-basic"
+                        label="Código do pedido"
+                        margin="dense"
+                        value={internalCode}
+                        onChange={e => setInternalCode(e.target.value)}
+                        className="locale"
+                        disabled
+                    />
+
                     <TextField
                         id="standard-select"
                         label="Status do Pedido"

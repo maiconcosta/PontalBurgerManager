@@ -40,9 +40,6 @@
     box-shadow: 4px 4px 6px rgb(202, 202, 202);
     padding: 20px;
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .lastSevenDays:hover {

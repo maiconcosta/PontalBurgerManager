@@ -38,7 +38,7 @@ export default function Orders() {
                         }
                     >
                         <li key={order.id}>
-                            <h3>Pedido #{order.id}</h3>
+                            <h3>Pedido #{order.internalCode}</h3>
                             <p><b>Status:</b> {order.Status.status}</p>
                             <p><b>Local:</b> {order.locale}</p>
                             <p><b>Valor:</b> {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.total)}</p>

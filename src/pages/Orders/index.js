@@ -29,12 +29,21 @@ export default function Orders() {
 
             <ul>
                 {orders.map(order => (
-                    <li key={order.id}>
-                        <h3>Pedido #{order.id}</h3>
-                        <p><b>Status:</b> {order.Status.status}</p>
-                        <p><b>Local:</b> {order.locale}</p>
-                        <p><b>Valor:</b> {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL'}).format(order.total)}</p>
-                    </li>
+                    <Link
+                        to={
+                            {
+                                pathname: `/pedido/${order.id}`,
+                                state: { order }
+                            }
+                        }
+                    >
+                        <li key={order.id}>
+                            <h3>Pedido #{order.id}</h3>
+                            <p><b>Status:</b> {order.Status.status}</p>
+                            <p><b>Local:</b> {order.locale}</p>
+                            <p><b>Valor:</b> {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(order.total)}</p>
+                        </li>
+                    </Link>
                 ))}
             </ul>
         </div>

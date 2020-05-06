@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { FaMinus, FaPlus } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
 
 import {
     Button,
@@ -7,12 +6,11 @@ import {
     InputLabel,
     List,
     ListItem,
-    ListItemIcon,
     ListItemText,
     MenuItem,
     TextField
 } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,41 +18,59 @@ import './styles.css';
 
 import api from '../../services/api';
 
-export default function NewOrder() {
+export default function EditOrder() {
+    const history = useHistory();
+    const location = useLocation();
+
+    const { order } = location.state;
+
     const [locale, setLocale] = useState('');
     const [observation, setObservation] = useState('');
     const [total, setTotal] = useState(0);
-    const statusId = 1;
+    const [statusId, setStatusId] = useState('');
+    const [status, setStatus] = useState([]);
     const [paymentId, setPaymentId] = useState('');
     const [payments, setPayments] = useState([]);
 
-    const [items, setItems] = useState([]);
-    const [selectedItems, setSelectedItems] = useState([]);
-    const [countedSelectedItems, setCountedSelectedItems] = useState([]);
-
-    const history = useHistory();
+    const [selectedItems, setSelectedItems] = useState([]);  
 
     useEffect(() => {
+        const {
+            items,
+            locale,
+            observation,
+            paymentId,
+            statusId, 
+            total
+        } = order;
+
+        setLocale(locale);
+        setObservation(observation);
+        setPaymentId(paymentId);
+        setStatusId(statusId);
+        setTotal(total);
+        setSelectedItems(items);
+
         requestApiData();
-    }, []);
+    }, [order]);  
 
     async function requestApiData() {
-        api.get('items', {
-        }).then(response => {
-            setItems(response.data);
-        }).catch((err) => {
-            console.log(err);
-        });
-
         api.get('payments', {
         }).then(response => {
             setPayments(response.data);
         }).catch((err) => {
             console.log(err);
         });
+
+        api.get('status', {
+        }).then(response => {
+            setStatus(response.data);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
-    async function handleNewOrder(e) {
+    async function handleEditOrder(e) {
         e.preventDefault();
 
         const data = {
@@ -62,11 +78,10 @@ export default function NewOrder() {
             observation,
             total,
             statusId,
-            paymentId,
-            items: countedSelectedItems
+            paymentId         
         };
 
-        await api.post('order', data, {})
+        await api.put(`order/${order.id}`, data, {})
             .then(() => {
                 toastSuccess();
                 history.push('/pedidos');
@@ -76,7 +91,7 @@ export default function NewOrder() {
     }
 
     function toastSuccess() {
-        toast.success('Pedido cadastrado com sucesso!', {
+        toast.success('Pedido atualizado com sucesso!', {
             position: "bottom-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -87,7 +102,7 @@ export default function NewOrder() {
     }
 
     function toastError() {
-        toast.error('Erro ao cadastrar o pedido, tente novamente.', {
+        toast.error('Erro ao atualizar o pedido, tente novamente.', {
             position: "bottom-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -97,45 +112,30 @@ export default function NewOrder() {
         });
     }
 
-    function handleSelectItem(item) {
-        setSelectedItems([...selectedItems, item]);
-        setTotal(total + item.value);
-    }
-
-    function handleRemoveSelectItem(item) {
-        const leftoverItems = selectedItems
-            .filter(selectedItem => selectedItem.id !== item.id);
-
-        setSelectedItems(leftoverItems);
-        setTotal(total - item.value);
-    }
-
-
-    useEffect(() => {
-        const filterSelectedItems = selectedItems
-            .map(filterItem => filterItem)
-            .filter((item, index, array) => array.indexOf(item) === index);
-
-        const counts = filterSelectedItems
-            .map(filterItem => ({
-                id: filterItem.id,
-                count: selectedItems.filter(item => item.id === filterItem.id).length,
-                name: filterItem.name,
-                value: filterItem.value * selectedItems.filter(item => item.id === filterItem.id).length
-            }));
-
-        setCountedSelectedItems(counts);
-    }, [selectedItems]);
-
-
     return (
-        <div className="newOrderContainer">
+        <div className="editOrderContainer">
             <header>
-                <h2>Novo Pedido</h2>
+                <h2>Editar Pedido</h2>
             </header>
 
             <div className="contentForm">
-                <form onSubmit={handleNewOrder}>
+                <form onSubmit={handleEditOrder}>
+                    <TextField
+                        id="standard-select"
+                        label="Status do Pedido"
+                        className="payment"
+                        margin="dense"
+                        select
+                        value={statusId}
+                        onChange={e => setStatusId(e.target.value)}
+                        required>
+                        {status.map((option) => (
+                            <MenuItem key={option.id} value={option.id}>
+                                {option.status}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
                     <TextField
                         id="standard-basic"
                         label="Local"
@@ -146,41 +146,12 @@ export default function NewOrder() {
                         required
                     />
 
+                    <InputLabel margin="dense">Itens do pedido</InputLabel>
                     <div className="items">
-                        <InputLabel margin="dense">Selecione os itens</InputLabel>
-                        <InputLabel margin="dense">Itens selecionados</InputLabel>
-                        <List component="nav" className="itemsList">
-                            {items.map((item) => (
-                                <ListItem
-                                    key={item.id}
-                                    onClick={() => handleSelectItem(item)}
-                                    button>
-                                    <ListItemText
-                                        primary={item.name}
-                                        secondary={
-                                            <Fragment>
-                                                <p>{item.description}</p>
-                                                <span>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.value)}</span>
-                                            </Fragment>
-                                        }
-                                    />
-                                    <ListItemIcon>
-                                        <FaPlus />
-                                    </ListItemIcon>
-                                </ListItem>
-                            ))}
-                        </List>
-
                         <List component="nav" className="selectedItemsList">
-                            {countedSelectedItems.map((selectedItem) => (
-                                <ListItem
-                                    key={selectedItem.id}
-                                    onClick={() => handleRemoveSelectItem(selectedItem)}
-                                    button>
-                                    <ListItemText>{selectedItem.count} {selectedItem.name}</ListItemText>
-                                    <ListItemIcon>
-                                        <FaMinus />
-                                    </ListItemIcon>
+                            {selectedItems.map((selectedItem) => (
+                                <ListItem key={selectedItem.id}>
+                                    <ListItemText>{selectedItem.ItemsOrders.count} {selectedItem.name}</ListItemText>
                                 </ListItem>
                             ))}
                         </List>
@@ -226,7 +197,7 @@ export default function NewOrder() {
                     </TextField>
 
                     <div className="actions">
-                        <Button type="submit" variant="contained" color="primary">Cadastrar</Button>
+                        <Button type="submit" variant="contained" color="primary">Atualizar</Button>
                     </div>
                 </form>
             </div>

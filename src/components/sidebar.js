@@ -4,7 +4,7 @@ import { FaBookOpen, FaFileInvoice, FaTachometerAlt } from 'react-icons/fa';
 
 import { NavLink  } from 'react-router-dom';
 
-import './styles.css';
+import './styles.scss';
 
 export default function Sidebar() {
 

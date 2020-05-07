@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { trackPromise } from 'react-promise-tracker';
 
-import './styles.css';
+import './styles.scss';
 
 import api from '../../services/api';
 

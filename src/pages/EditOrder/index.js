@@ -14,7 +14,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import './styles.css';
+import './styles.scss';
 
 import api from '../../services/api';
 

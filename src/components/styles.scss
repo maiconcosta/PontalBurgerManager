@@ -29,22 +29,22 @@
     display: flex;
     flex-direction: column;   
     color: #fff;
-}
 
-.menu a {
-    padding: 10px 30px;
-    color: #fff;
-    text-decoration: none;
-    display: flex;
-}
+    a {
+        padding: 10px 30px;
+        color: #fff;
+        text-decoration: none;
+        display: flex;
 
-.menu a:hover{
-    width: 100%;
-    background: #a7a7a7;
-}
+        &:hover{
+            width: 100%;
+            background: #a7a7a7;
+        }
+    }    
 
-.menu i {
-    padding-right: 8px;
+    i {
+        padding-right: 8px;
+    }
 }
 
 .active {

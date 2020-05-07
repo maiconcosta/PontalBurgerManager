@@ -1,7 +1,7 @@
 import React from 'react';
 import Base from './components/base';
 
-import './global.css';
+import './global.scss';
 
 function App() {
   return (

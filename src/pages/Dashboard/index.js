@@ -8,7 +8,7 @@ import {
 
 import api from '../../services/api';
 
-import './styles.css';
+import './styles.scss';
 
 export default function Dashboard() {
    const [count, setCount] = useState(0);

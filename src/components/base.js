@@ -9,7 +9,7 @@ import Routes from '../routes';
 
 import Sidebar from './sidebar';
 
-import './styles.css';
+import './styles.scss';
 
 const LoadingIndicator = props => {
     const { promiseInProgress } = usePromiseTracker();

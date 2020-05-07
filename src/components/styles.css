@@ -47,6 +47,10 @@
     padding-right: 8px;
 }
 
+.active {
+    background: #a7a7a7;
+}
+
 .content {   
     padding: 20px;   
 }

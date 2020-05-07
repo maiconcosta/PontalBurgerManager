@@ -11,7 +11,7 @@ import NewOrder from './pages/NewOrder';
 export default function Routes() {
     return (
         <Switch>
-            <Route path="/" exact component={Dashboard} />
+            <Route path="/home" exact component={Dashboard} />
             
             <Route exact path="/pedidos" component={Orders} />
             <Route path="/pedidos/novo" component={NewOrder} />

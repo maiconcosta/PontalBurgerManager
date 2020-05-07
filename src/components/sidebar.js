@@ -2,7 +2,7 @@ import React from 'react';
 import logoImg from '../assets/logo.png';
 import { FaBookOpen, FaFileInvoice, FaTachometerAlt } from 'react-icons/fa';
 
-import { Link } from 'react-router-dom';
+import { NavLink  } from 'react-router-dom';
 
 import './styles.css';
 
@@ -13,16 +13,16 @@ export default function Sidebar() {
             <img src={logoImg} alt="Pontal Burger" className="logo" />
 
             <div className="menu">
-                <Link to="/">
+                <NavLink to="/home" activeClassName="active">
                     <i><FaTachometerAlt /></i>
                     Dashboard
-                </Link>
-                <Link to="/pedidos">
+                </NavLink >
+                <NavLink to="/pedidos" activeClassName="active">
                     <i><FaFileInvoice /></i> Pedidos
-                </Link>
-                <Link to="/cardapio">
+                </NavLink>
+                <NavLink to="/cardapio" activeClassName="active">
                     <i><FaBookOpen /></i> Cardápio
-                </Link>                
+                </NavLink>                
             </div>
         </div>
     )

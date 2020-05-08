@@ -59,7 +59,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="indicative">
-                    <h3>{totalItems ? count : '--'}</h3>
+                    <h3>{totalItems ? totalItems : '--'}</h3>
                     <p>Itens Vendidos</p>
                 </div>
 

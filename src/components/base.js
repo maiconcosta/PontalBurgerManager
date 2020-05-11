@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { usePromiseTracker } from "react-promise-tracker";
+import { usePromiseTracker } from 'react-promise-tracker';
 import { ToastContainer } from 'react-toastify';
 
 import GridLoader from 'react-spinners/GridLoader';
@@ -11,34 +11,36 @@ import Sidebar from './sidebar';
 
 import './styles.scss';
 
-const LoadingIndicator = props => {
-    const { promiseInProgress } = usePromiseTracker();
+const LoadingIndicator = () => {
+  const { promiseInProgress } = usePromiseTracker();
 
-    return (
-        promiseInProgress &&
+  return (
+    promiseInProgress
+        && (
         <div className="loader">
-            <GridLoader
-                size={15}
-                color={"#999"}
-                loading
-            />
-        </div>        
-    );
-}
+          <GridLoader
+            size={15}
+            color="#999"
+            loading
+          />
+        </div>
+        )
+  );
+};
 
 export default function Base() {
-    return (
-        <BrowserRouter>
-            <div className="baseContainer">
-                <div className="side">
-                    <Sidebar />
-                </div>
-                <div className="content">
-                    <Routes />
-                    <LoadingIndicator />
-                </div>
-            </div>
-            <ToastContainer />
-        </BrowserRouter>        
-    );
+  return (
+    <BrowserRouter>
+      <div className="baseContainer">
+        <div className="side">
+          <Sidebar />
+        </div>
+        <div className="content">
+          <Routes />
+          <LoadingIndicator />
+        </div>
+      </div>
+      <ToastContainer />
+    </BrowserRouter>
+  );
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import { FaBookOpen, FaFileInvoice, FaTachometerAlt } from 'react-icons/fa';
+import {
+  FaBookOpen, FaFileInvoice, FaTachometerAlt, FaSignOutAlt,
+} from 'react-icons/fa';
 
 import { NavLink } from 'react-router-dom';
 import logoImg from '../assets/logo.png';
-
-import './styles.scss';
 
 export default function Sidebar() {
   return (
@@ -29,6 +29,18 @@ export default function Sidebar() {
             <FaBookOpen />
           </i>
           Cardápio
+        </NavLink>
+        <NavLink
+          exact
+          to={{
+            pathname: '/',
+            state: 'logout',
+          }}
+        >
+          <i>
+            <FaSignOutAlt />
+          </i>
+          Sair
         </NavLink>
       </div>
     </div>

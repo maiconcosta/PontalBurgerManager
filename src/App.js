@@ -1,12 +1,9 @@
 import React from 'react';
-import Base from './components/base';
+
+import AppRoutes from './routes/AppRoutes';
 
 import './global.scss';
 
-function App() {
-  return (
-    <Base />
-  );
-}
+const App = () => <AppRoutes />;
 
 export default App;

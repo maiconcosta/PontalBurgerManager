@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toastError } from '../components/toast';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -15,8 +16,7 @@ api.interceptors.request.use(async (config) => {
       }
     }
   } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
+    toastError('Ocorreu um erro, tente novamente.');
   }
 
   return config;

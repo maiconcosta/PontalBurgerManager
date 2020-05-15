@@ -11,8 +11,7 @@ import {
   TextField,
 } from '@material-ui/core';
 import { useHistory, useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toastSuccess, toastError } from '../../components/toast';
 
 import './styles.scss';
 
@@ -41,9 +40,8 @@ export default function EditOrder() {
       .then((response) => {
         setPayments(response.data);
       })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.log(err);
+      .catch(() => {
+        toastError('Ocorreu um erro ao recuperar os dados, tente novamente.');
       });
 
     api
@@ -51,9 +49,8 @@ export default function EditOrder() {
       .then((response) => {
         setStatus(response.data);
       })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.log(err);
+      .catch(() => {
+        toastError('Ocorreu um erro ao recuperar os dados, tente novamente.');
       });
   }
 
@@ -69,28 +66,6 @@ export default function EditOrder() {
     requestApiData();
   }, [order]);
 
-  function toastSuccess() {
-    toast.success('Pedido atualizado com sucesso!', {
-      position: 'bottom-center',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-  }
-
-  function toastError() {
-    toast.error('Erro ao atualizar o pedido, tente novamente.', {
-      position: 'bottom-center',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-  }
-
   async function handleEditOrder(e) {
     e.preventDefault();
 
@@ -105,11 +80,11 @@ export default function EditOrder() {
     await api
       .put(`order/${order.id}`, data, {})
       .then(() => {
-        toastSuccess();
+        toastSuccess('Pedido atualizado com sucesso!');
         history.push('/pedidos');
       })
       .catch(() => {
-        toastError();
+        toastError('Erro ao atualizar o pedido, tente novamente.');
       });
   }
 

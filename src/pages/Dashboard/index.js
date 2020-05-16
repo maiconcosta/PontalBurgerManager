@@ -25,11 +25,11 @@ export default function Dashboard() {
 
   const startDate = format(startOfToday(), 'yyyy/MM/dd HH:mm:ss');
   const endDate = format(endOfToday(), 'yyyy/MM/dd HH:mm:ss');
-  const sevenDaysAgo = subDays(endDate, 7);
+  const sevenDaysAgo = format(subDays(startOfToday(), 7), 'yyyy/MM/dd HH:mm:ss');
 
   const [lastSevenDays, setLastSevenDays] = useState([]);
 
-  function requestApiData() {
+  useEffect(() => {
     api
       .get(
         `reports/orders/counts?startDate=${startDate}&endDate=${endDate}`,
@@ -53,11 +53,7 @@ export default function Dashboard() {
         }));
         setLastSevenDays(sevenDays);
       });
-  }
-
-  useEffect(() => {
-    requestApiData();
-  }, []);
+  }, [startDate, endDate, sevenDaysAgo]);
 
   return (
     <div className="dashboardContainer">

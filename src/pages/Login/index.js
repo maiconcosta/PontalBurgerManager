@@ -1,24 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import { useHistory, useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toastSuccess, toastError } from '../../components/toast';
 
 import api from '../../services/api';
 
 import './styles.scss';
 import LoginImg from '../../assets/login.svg';
-
-const toastError = () => {
-  toast.error('Falha no login', {
-    position: 'bottom-center',
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-  });
-};
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -41,9 +29,11 @@ export default function Login() {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
 
+      toastSuccess('Login efetuado com sucesso!');
+
       history.push('/home');
     } catch (err) {
-      toastError();
+      toastError('Falha no login, tente novamente.');
     }
   }
 

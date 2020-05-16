@@ -2,34 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, MenuItem, TextField } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-import './styles.scss';
+import { toastSuccess, toastError } from '../../components/toast';
 
 import api from '../../services/api';
 
-const handleSuccess = () => {
-  toast.success('Item cadastrado com sucesso!', {
-    position: 'bottom-center',
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-  });
-};
-
-const handleError = () => {
-  toast.error('Erro ao cadastrar o item, tente novamente.', {
-    position: 'bottom-center',
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-  });
-};
+import './styles.scss';
 
 export default function NewItem() {
   const [name, setName] = useState('');
@@ -60,10 +37,10 @@ export default function NewItem() {
 
     try {
       await api.post('item', data, {});
-      handleSuccess();
+      toastSuccess('Item cadastrado com sucesso!');
       history.push('/cardapio');
-    } catch (err) {
-      handleError();
+    } catch {
+      toastError('Erro ao cadastrar o item, tente novamente.');
     }
   }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { FaMinus, FaPlus } from 'react-icons/fa';
-
 import {
   Button,
   InputAdornment,
@@ -12,35 +12,12 @@ import {
   MenuItem,
   TextField,
 } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-import './styles.scss';
+import { toastSuccess, toastError } from '../../components/toast';
 
 import api from '../../services/api';
 
-const toastSuccess = () => {
-  toast.success('Pedido cadastrado com sucesso!', {
-    position: 'bottom-center',
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-  });
-};
-
-const toastError = () => {
-  toast.error('Erro ao cadastrar o pedido, tente novamente.', {
-    position: 'bottom-center',
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-  });
-};
+import './styles.scss';
 
 export default function NewOrder() {
   const [locale, setLocale] = useState('');
@@ -63,9 +40,8 @@ export default function NewOrder() {
       .then((response) => {
         setItems(response.data);
       })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.log(err);
+      .catch(() => {
+        toastError('Ocorreu um erro ao recuperar os dados, tente novamente.');
       });
 
     api
@@ -73,9 +49,8 @@ export default function NewOrder() {
       .then((response) => {
         setPayments(response.data);
       })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.log(err);
+      .catch(() => {
+        toastError('Ocorreu um erro ao recuperar os dados, tente novamente.');
       });
   }
 
@@ -117,11 +92,11 @@ export default function NewOrder() {
     await api
       .post('order', data, {})
       .then(() => {
-        toastSuccess();
+        toastSuccess('Pedido cadastrado com sucesso!');
         history.push('/pedidos');
       })
       .catch(() => {
-        toastError();
+        toastError('Erro ao cadastrar o pedido, tente novamente.');
       });
   }
 

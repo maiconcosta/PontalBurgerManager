@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { trackPromise } from 'react-promise-tracker';
+import {
+  FaArrowRight,
+} from 'react-icons/fa';
 
 import './styles.scss';
 
@@ -37,28 +40,37 @@ export default function Orders() {
             }}
           >
             <li key={order.id}>
-              <h3>
-                Pedido #
-                {order.internalCode}
-              </h3>
+              <div className="headerCardOrder">
+                <h3>
+                  Pedido #
+                  {order.internalCode}
+                </h3>
+                <p
+                  className={
+                     `${order.Status.id === 1 ? 'started' : ''}
+                      ${order.Status.id === 2 ? 'preparing' : ''}
+                      ${order.Status.id === 3 ? 'outForDelivery' : ''}
+                      ${order.Status.id === 4 ? 'finished' : ''}
+                      ${order.Status.id === 5 ? 'canceled' : ''}`
+                  }
+                >
+                  {order.Status.status}
+                </p>
+              </div>
               <p>
-                <b>Status:</b>
-                {' '}
-                {order.Status.status}
-              </p>
-              <p>
-                <b>Local:</b>
-                {' '}
-                {order.locale}
-              </p>
-              <p>
-                <b>Valor:</b>
-                {' '}
                 {Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',
                 }).format(order.total)}
               </p>
+              <div className="footerCardOrder">
+                <p>
+                  Visualizar detalhes
+                </p>
+                <i>
+                  <FaArrowRight />
+                </i>
+              </div>
             </li>
           </Link>
         ))}

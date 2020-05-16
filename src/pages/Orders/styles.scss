@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .ordersContainer {
     width: 100%;
     max-width: 1100px;
@@ -28,6 +30,53 @@
             &:hover {
                 box-shadow: 2px 2px 10px rgb(134, 134, 134);
                 cursor: pointer;
+            }
+
+            .headerCardOrder {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              p {
+                color: #fff;
+                padding: 2px 6px;
+                border-radius: 10px;
+                font-weight: bold;
+              }
+              .started {
+                background: $started;
+              }
+
+              .preparing {
+                background: $preparing;
+              }
+
+              .waitingForDeliveryMan {
+                background: $waitingForDeliveryMan;
+              }
+
+              .outForDelivery {
+                background: $outForDelivery;
+              }
+
+              .finished {
+                background: $finished;
+              }
+
+              .canceled {
+                background: $canceled;
+              }
+            }
+
+            .footerCardOrder {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+
+              i {
+                margin-left: 8px;
+                display: flex;
+              }
             }
         }
 

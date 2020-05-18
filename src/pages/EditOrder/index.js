@@ -31,8 +31,36 @@ export default function EditOrder() {
   const [status, setStatus] = useState([]);
   const [paymentId, setPaymentId] = useState('');
   const [payments, setPayments] = useState([]);
+  const [deadline, setDeadline] = useState('');
 
   const [selectedItems, setSelectedItems] = useState([]);
+  const deadlineOptions = [
+    {
+      name: '10 a 20',
+      value: 20,
+    },
+    {
+      name: '20 a 30',
+      value: 30,
+    },
+    {
+      name: '30 a 40',
+      value: 40,
+    },
+    {
+      name: '40 a 50',
+      value: 50,
+    },
+
+    {
+      name: '50 a 60',
+      value: 60,
+    },
+    {
+      name: '60 a 70',
+      value: 70,
+    },
+  ];
 
   async function requestApiData() {
     api
@@ -60,6 +88,7 @@ export default function EditOrder() {
     setObservation(order.observation);
     setPaymentId(order.paymentId);
     setStatusId(order.statusId);
+    setDeadline(order.deadline);
     setTotal(order.total);
     setSelectedItems(order.items);
 
@@ -185,6 +214,23 @@ export default function EditOrder() {
           >
             {payments.map((option) => (
               <MenuItem key={option.id} value={option.id}>
+                {option.name}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            id="standard-select"
+            label="Tempo para entrega em minutos"
+            className="deadline"
+            margin="dense"
+            select
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
+            required
+          >
+            {deadlineOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
                 {option.name}
               </MenuItem>
             ))}

@@ -2,7 +2,7 @@
     width: 100%;
     max-width: 1100px;
 
-    .contentForm {  
+    .contentForm {
         margin: 20px 0;
         padding: 20px;
         background: #fff;
@@ -15,26 +15,31 @@
 
     form {
         display: flex;
-        flex-direction: column;    
+        flex-direction: column;
     }
 
     input, select {
-        margin-bottom: 10px; 
+        margin-bottom: 10px;
     }
 
     .locale {
         width: 100%;
-        max-width: 200px;   
+        max-width: 200px;
     }
 
     .value {
         width: 100%;
-        max-width: 100px;   
+        max-width: 100px;
     }
 
     .payment {
         width: 100%;
-        max-width: 200px;   
+        max-width: 200px;
+    }
+
+    .deadline {
+      width: 100%;
+      max-width: 300px;
     }
 
     .items {
@@ -47,7 +52,7 @@
     .observation {
         width: 50%;
     }
-    
+
     button {
         width: 100%;
         max-width: 100px;

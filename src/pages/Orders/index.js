@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { trackPromise } from 'react-promise-tracker';
-import {
-  FaArrowRight,
-} from 'react-icons/fa';
+import { format } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
+import { FaArrowRight } from 'react-icons/fa';
 
 import './styles.scss';
 
@@ -20,6 +20,12 @@ export default function Orders() {
     );
   }, []);
 
+  function setTimezone(date) {
+    const timezone = process.env.REACT_APP_TIMEZONE;
+    const newDate = format(utcToZonedTime(date, timezone), 'HH:mm');
+    return newDate;
+  }
+
   return (
     <div className="ordersContainer">
       <header>
@@ -34,6 +40,7 @@ export default function Orders() {
       <ul>
         {orders.map((order) => (
           <Link
+            key={order.id}
             to={{
               pathname: `/pedido/${order.id}`,
               state: { order },
@@ -57,6 +64,11 @@ export default function Orders() {
                   {order.Status.status}
                 </p>
               </div>
+              <p>
+                Horário do pedido:
+                {' '}
+                {setTimezone(order.createdAt)}
+              </p>
               <p>
                 {Intl.NumberFormat('pt-BR', {
                   style: 'currency',

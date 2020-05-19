@@ -83,14 +83,14 @@ export default function EditOrder() {
   }
 
   useEffect(() => {
-    setLocale(order.locale);
-    setInternalCode(order.internalCode);
-    setObservation(order.observation);
-    setPaymentId(order.paymentId);
-    setStatusId(order.statusId);
+    setLocale(order.rest.locale);
+    setInternalCode(order.rest.internalCode);
+    setObservation(order.rest.observation);
+    setPaymentId(order.rest.paymentId);
+    setStatusId(order.rest.statusId);
     setDeadline(order.deadline);
-    setTotal(order.total);
-    setSelectedItems(order.items);
+    setTotal(order.rest.total);
+    setSelectedItems(order.rest.items);
 
     requestApiData();
   }, [order]);
@@ -104,6 +104,7 @@ export default function EditOrder() {
       total,
       statusId,
       paymentId,
+      deadline,
     };
 
     await api

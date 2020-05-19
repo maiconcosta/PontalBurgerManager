@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { trackPromise } from 'react-promise-tracker';
-import { format } from 'date-fns';
+import { addMinutes, format, parseISO } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import { FaArrowRight } from 'react-icons/fa';
 
@@ -12,19 +12,32 @@ import api from '../../services/api';
 export default function Orders() {
   const [orders, setOrders] = useState([]);
 
+  function setTimezone(date) {
+    const timezone = process.env.REACT_APP_TIMEZONE;
+    const newDate = format(utcToZonedTime(date, timezone), 'dd/MM/yyyy HH:mm');
+    return newDate;
+  }
+
+  function setDeadline(date, deadline) {
+    const deadlineDate = format(addMinutes(parseISO(date), deadline), 'HH:mm');
+    return deadlineDate;
+  }
+
   useEffect(() => {
     trackPromise(
       api.get('orders', {}).then((response) => {
-        setOrders(response.data);
+        const data = response.data
+          .map(({ createdAt, deadline, ...rest }) => ({
+            createdAt: setTimezone(createdAt),
+            deadline,
+            deadlineDate: setDeadline(createdAt, deadline || 40),
+            rest,
+          }));
+
+        setOrders(data);
       }),
     );
   }, []);
-
-  function setTimezone(date) {
-    const timezone = process.env.REACT_APP_TIMEZONE;
-    const newDate = format(utcToZonedTime(date, timezone), 'HH:mm');
-    return newDate;
-  }
 
   return (
     <div className="ordersContainer">
@@ -40,40 +53,45 @@ export default function Orders() {
       <ul>
         {orders.map((order) => (
           <Link
-            key={order.id}
+            key={order.rest.id}
             to={{
-              pathname: `/pedido/${order.id}`,
+              pathname: `/pedido/${order.rest.id}`,
               state: { order },
             }}
           >
-            <li key={order.id}>
+            <li key={order.rest.id}>
               <div className="headerCardOrder">
                 <h3>
                   Pedido #
-                  {order.internalCode}
+                  {order.rest.internalCode}
                 </h3>
                 <p
                   className={
-                     `${order.Status.id === 1 ? 'started' : ''}
-                      ${order.Status.id === 2 ? 'preparing' : ''}
-                      ${order.Status.id === 3 ? 'outForDelivery' : ''}
-                      ${order.Status.id === 4 ? 'finished' : ''}
-                      ${order.Status.id === 5 ? 'canceled' : ''}`
+                     `${order.rest.Status.id === 1 ? 'started' : ''}
+                      ${order.rest.Status.id === 2 ? 'preparing' : ''}
+                      ${order.rest.Status.id === 3 ? 'outForDelivery' : ''}
+                      ${order.rest.Status.id === 4 ? 'finished' : ''}
+                      ${order.rest.Status.id === 5 ? 'canceled' : ''}`
                   }
                 >
-                  {order.Status.status}
+                  {order.rest.Status.status}
                 </p>
               </div>
               <p>
-                Horário do pedido:
+                Data e hora do pedido:
                 {' '}
-                {setTimezone(order.createdAt)}
+                {order.createdAt}
+              </p>
+              <p>
+                Entregar até:
+                {' '}
+                {order.deadlineDate}
               </p>
               <p>
                 {Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',
-                }).format(order.total)}
+                }).format(order.rest.total)}
               </p>
               <div className="footerCardOrder">
                 <p>

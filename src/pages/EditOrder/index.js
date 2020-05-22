@@ -108,7 +108,7 @@ export default function EditOrder() {
     };
 
     await api
-      .put(`order/${order.id}`, data, {})
+      .put(`order/${order.rest.id}`, data, {})
       .then(() => {
         toastSuccess('Pedido atualizado com sucesso!');
         history.push('/pedidos');

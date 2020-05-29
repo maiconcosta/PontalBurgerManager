@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import {
   Button,
+  Grid,
   InputAdornment,
   InputLabel,
   List,
@@ -126,116 +127,128 @@ export default function EditOrder() {
 
       <div className="contentForm">
         <form onSubmit={handleEditOrder}>
-          <TextField
-            id="standard-basic"
-            label="Código do pedido"
-            margin="dense"
-            value={internalCode}
-            onChange={(e) => setInternalCode(e.target.value)}
-            className="locale"
-            disabled
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={3}>
+              <TextField
+                label="Código do pedido"
+                margin="dense"
+                value={internalCode}
+                onChange={(e) => setInternalCode(e.target.value)}
+                fullWidth
+                disabled
+              />
+            </Grid>
 
-          <TextField
-            id="standard-select"
-            label="Status do Pedido"
-            className="payment"
-            margin="dense"
-            select
-            value={statusId}
-            onChange={(e) => setStatusId(e.target.value)}
-            required
-          >
-            {status.map((option) => (
-              <MenuItem key={option.id} value={option.id}>
-                {option.status}
-              </MenuItem>
-            ))}
-          </TextField>
+            <Grid item xs={6}>
+              <TextField
+                label="Local"
+                margin="dense"
+                value={locale}
+                onChange={(e) => setLocale(e.target.value)}
+                fullWidth
+                required
+              />
+            </Grid>
 
-          <TextField
-            id="standard-basic"
-            label="Local"
-            margin="dense"
-            value={locale}
-            onChange={(e) => setLocale(e.target.value)}
-            className="locale"
-            required
-          />
+            <Grid item xs={3}>
+              <TextField
+                label="Tempo para entrega em minutos"
+                margin="dense"
+                select
+                value={deadline}
+                onChange={(e) => setDeadline(e.target.value)}
+                fullWidth
+                required
+              >
+                {deadlineOptions.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
 
-          <InputLabel margin="dense">Itens do pedido</InputLabel>
-          <div className="items">
-            <List component="nav" className="selectedItemsList">
-              {selectedItems.map((selectedItem) => (
-                <ListItem key={selectedItem.id}>
-                  <ListItemText>
-                    {selectedItem.ItemsOrders.count}
-                    {' '}
-                    {selectedItem.name}
-                  </ListItemText>
-                </ListItem>
-              ))}
-            </List>
-          </div>
+            <Grid item xs={12}>
+              <InputLabel margin="dense">Itens do pedido</InputLabel>
+              <div className="items">
+                <List component="nav" className="selectedItemsList">
+                  {selectedItems.map((selectedItem) => (
+                    <ListItem key={selectedItem.id}>
+                      <ListItemText>
+                        {selectedItem.ItemsOrders.count}
+                        {' '}
+                        {selectedItem.name}
+                      </ListItemText>
+                    </ListItem>
+                  ))}
+                </List>
+              </div>
+            </Grid>
 
-          <TextField
-            id="standard-basic"
-            label="Observação"
-            className="observation"
-            multiline
-            margin="dense"
-            value={observation}
-            onChange={(e) => setObservation(e.target.value)}
-          />
+            <Grid item xs={6}>
+              <TextField
+                label="Observação"
+                multiline
+                margin="dense"
+                value={observation}
+                onChange={(e) => setObservation(e.target.value)}
+                fullWidth
+              />
+            </Grid>
 
-          <TextField
-            type="number"
-            id="standard-basic"
-            label="Total"
-            className="value"
-            margin="dense"
-            value={total}
-            onChange={(e) => setTotal(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">R$</InputAdornment>
-              ),
-            }}
-          />
+            <Grid item xs={3}>
+              <TextField
+                type="number"
+                label="Total"
+                margin="dense"
+                fullWidth
+                value={total}
+                onChange={(e) => setTotal(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">R$</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
 
-          <TextField
-            id="standard-select"
-            label="Forma de Pagamento"
-            className="payment"
-            margin="dense"
-            select
-            value={paymentId}
-            onChange={(e) => setPaymentId(e.target.value)}
-            required
-          >
-            {payments.map((option) => (
-              <MenuItem key={option.id} value={option.id}>
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
+            <Grid item xs={3}>
+              <TextField
+                label="Forma de Pagamento"
+                margin="dense"
+                select
+                value={paymentId}
+                onChange={(e) => setPaymentId(e.target.value)}
+                fullWidth
+                required
+              >
+                {payments.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
 
-          <TextField
-            id="standard-select"
-            label="Tempo para entrega em minutos"
-            className="deadline"
-            margin="dense"
-            select
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
-            required
-          >
-            {deadlineOptions.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
+            <Grid item xs={3}>
+              <TextField
+                label="Status do Pedido"
+                margin="dense"
+                select
+                value={statusId}
+                onChange={(e) => setStatusId(e.target.value)}
+                fullWidth
+                required
+              >
+                {status.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.status}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+
+          </Grid>
 
           <div className="actions">
             <Button type="submit" variant="contained" color="primary">

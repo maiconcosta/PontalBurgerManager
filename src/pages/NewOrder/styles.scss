@@ -13,44 +13,11 @@
         }
     }
 
-    form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    input, select {
-        margin-bottom: 10px;
-    }
-
-    .locale {
-        width: 100%;
-        max-width: 200px;
-    }
-
-    .value {
-        width: 100%;
-        max-width: 100px;
-    }
-
-    .payment {
-        width: 100%;
-        max-width: 200px;
-    }
-
-    .deadline {
-      width: 100%;
-      max-width: 300px;
-    }
-
     .items {
         margin-top:20px;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 20px;
-    }
-
-    .observation {
-        width: 50%;
     }
 
     button {
@@ -72,5 +39,6 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        margin-top: 10px;
     }
 }

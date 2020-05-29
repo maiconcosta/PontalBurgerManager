@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import {
   Button,
+  Grid,
   InputAdornment,
   InputLabel,
   List,
@@ -24,7 +25,7 @@ export default function NewOrder() {
   const [internalCode, setInternalCode] = useState('');
   const [observation, setObservation] = useState('');
   const [total, setTotal] = useState(0);
-  const statusId = 1;
+  const statusId = 2;
   const [paymentId, setPaymentId] = useState('');
   const [payments, setPayments] = useState([]);
   const [deadline, setDeadline] = useState('');
@@ -151,135 +152,150 @@ export default function NewOrder() {
 
       <div className="contentForm">
         <form onSubmit={handleNewOrder}>
-          <TextField
-            id="standard-basic"
-            label="Código do pedido"
-            margin="dense"
-            value={internalCode}
-            onChange={(e) => setInternalCode(e.target.value)}
-            className="locale"
-            required
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={3}>
+              <TextField
+                label="Código do pedido"
+                margin="dense"
+                value={internalCode}
+                onChange={(e) => setInternalCode(e.target.value)}
+                fullWidth
+                required
+              />
+            </Grid>
 
-          <TextField
-            id="standard-basic"
-            label="Local"
-            margin="dense"
-            value={locale}
-            onChange={(e) => setLocale(e.target.value)}
-            className="locale"
-            required
-          />
+            <Grid item xs={6}>
+              <TextField
+                label="Local"
+                margin="dense"
+                value={locale}
+                onChange={(e) => setLocale(e.target.value)}
+                fullWidth
+                required
+              />
+            </Grid>
 
-          <div className="items">
-            <InputLabel margin="dense">Selecione os itens</InputLabel>
-            <InputLabel margin="dense">Itens selecionados</InputLabel>
-            <List component="nav" className="itemsList">
-              {items.map((item) => (
-                <ListItem
-                  key={item.id}
-                  onClick={() => handleSelectItem(item)}
-                  button
-                >
-                  <ListItemText
-                    primary={item.name}
-                    secondary={(
-                      <>
-                        <p>{item.description}</p>
-                        <span>
-                          {Intl.NumberFormat('pt-BR', {
-                            style: 'currency',
-                            currency: 'BRL',
-                          }).format(item.value)}
-                        </span>
-                      </>
-                    )}
-                  />
-                  <ListItemIcon>
-                    <FaPlus />
-                  </ListItemIcon>
-                </ListItem>
-              ))}
-            </List>
+            <Grid item xs={3}>
+              <TextField
+                label="Tempo para entrega"
+                className="deadline"
+                margin="dense"
+                select
+                value={deadline}
+                onChange={(e) => setDeadline(e.target.value)}
+                fullWidth
+                required
+              >
+                {deadlineOptions.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
 
-            <List component="nav" className="selectedItemsList">
-              {countedSelectedItems.map((selectedItem) => (
-                <ListItem
-                  key={selectedItem.id}
-                  onClick={() => handleRemoveSelectItem(selectedItem)}
-                  button
-                >
-                  <ListItemText>
-                    {selectedItem.count}
-                    {' '}
-                    {selectedItem.name}
-                  </ListItemText>
-                  <ListItemIcon>
-                    <FaMinus />
-                  </ListItemIcon>
-                </ListItem>
-              ))}
-            </List>
-          </div>
+            <Grid item xs={12}>
+              <div className="items">
+                <InputLabel margin="dense">Selecione os itens</InputLabel>
+                <InputLabel margin="dense">Itens selecionados</InputLabel>
+                <List component="nav" className="itemsList">
+                  {items.map((item) => (
+                    <ListItem
+                      key={item.id}
+                      onClick={() => handleSelectItem(item)}
+                      button
+                    >
+                      <ListItemText
+                        primary={item.name}
+                        secondary={(
+                          <>
+                            <p>{item.description}</p>
+                            <span>
+                              {Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL',
+                              }).format(item.value)}
+                            </span>
+                          </>
+                      )}
+                      />
+                      <ListItemIcon>
+                        <FaPlus />
+                      </ListItemIcon>
+                    </ListItem>
+                  ))}
+                </List>
 
-          <TextField
-            id="standard-basic"
-            label="Observação"
-            className="observation"
-            multiline
-            margin="dense"
-            value={observation}
-            onChange={(e) => setObservation(e.target.value)}
-          />
+                <List component="nav" className="selectedItemsList">
+                  {countedSelectedItems.map((selectedItem) => (
+                    <ListItem
+                      key={selectedItem.id}
+                      onClick={() => handleRemoveSelectItem(selectedItem)}
+                      button
+                    >
+                      <ListItemText>
+                        {selectedItem.count}
+                        {' '}
+                        {selectedItem.name}
+                      </ListItemText>
+                      <ListItemIcon>
+                        <FaMinus />
+                      </ListItemIcon>
+                    </ListItem>
+                  ))}
+                </List>
+              </div>
+            </Grid>
 
-          <TextField
-            type="number"
-            id="standard-basic"
-            label="Total"
-            className="value"
-            margin="dense"
-            value={total}
-            onChange={(e) => setTotal(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">R$</InputAdornment>
-              ),
-            }}
-          />
+            <Grid item xs={6}>
+              <TextField
+                label="Observação"
+                multiline
+                margin="dense"
+                value={observation}
+                onChange={(e) => setObservation(e.target.value)}
+                fullWidth
+              />
+            </Grid>
 
-          <TextField
-            id="standard-select"
-            label="Forma de Pagamento"
-            className="payment"
-            margin="dense"
-            select
-            value={paymentId}
-            onChange={(e) => setPaymentId(e.target.value)}
-            required
-          >
-            {payments.map((option) => (
-              <MenuItem key={option.id} value={option.id}>
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
+            <Grid item xs={3}>
+              <TextField
+                id="standard-select"
+                label="Forma de Pagamento"
+                className="payment"
+                margin="dense"
+                select
+                value={paymentId}
+                onChange={(e) => setPaymentId(e.target.value)}
+                fullWidth
+                required
+              >
+                {payments.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
 
-          <TextField
-            id="standard-select"
-            label="Tempo para entrega em minutos"
-            className="deadline"
-            margin="dense"
-            select
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
-            required
-          >
-            {deadlineOptions.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
+            <Grid item xs={3}>
+              <TextField
+                type="number"
+                id="standard-basic"
+                label="Total"
+                className="value"
+                margin="dense"
+                value={total}
+                onChange={(e) => setTotal(e.target.value)}
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">R$</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+          </Grid>
 
           <div className="actions">
             <Button type="submit" variant="contained" color="primary">

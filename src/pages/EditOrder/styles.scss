@@ -29,11 +29,6 @@
         max-width: 100px;
     }
 
-    .itemsList {
-        height: 200px;
-        overflow: auto;
-    }
-
     .selectedItemsList {
         height: 200px;
         overflow: auto;
@@ -44,4 +39,16 @@
         align-items: center;
         justify-content: flex-end;
     }
+}
+
+@media screen and (min-width: 1400px) {
+  .editOrderContainer {
+    width: 100%;
+    max-width: 1700px;
+
+    .selectedItemsList {
+        height: 300px;
+        overflow: auto;
+    }
+  }
 }

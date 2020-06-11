@@ -42,3 +42,20 @@
         margin-top: 10px;
     }
 }
+
+@media screen and (min-width: 1400px) {
+  .newOrderContainer {
+    width: 100%;
+    max-width: 1700px;
+
+    .itemsList {
+      height: 500px;
+      overflow: auto;
+  }
+
+    .selectedItemsList {
+        height: 500px;
+        overflow: auto;
+    }
+  }
+}

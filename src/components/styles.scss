@@ -1,65 +1,73 @@
 .baseContainer {
-    width: 100%;;
-    display: grid;
-    grid-template-columns: 1fr 5fr;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
 }
 
 .side {
-    width: 230px;
-    background: #212121;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 230px;
+  background: #212121;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sidebarContainer {
-    position: fixed;
-    background: inherit;
-    width: 230px;
-    height: 100vh;
+  position: fixed;
+  background: inherit;
+  width: 230px;
+  height: 100vh;
 }
 
 .logo {
-    width: 100%;
-    max-width: 230px;
-    padding: 25px;
+  width: 100%;
+  max-width: 230px;
+  padding: 25px;
 }
 
 .menu {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+
+  a {
+    padding: 10px 30px;
     color: #fff;
+    text-decoration: none;
+    display: flex;
 
-    a {
-        padding: 10px 30px;
-        color: #fff;
-        text-decoration: none;
-        display: flex;
-
-        &:hover{
-            width: 100%;
-            background: #a7a7a7;
-        }
+    &:hover {
+      width: 100%;
+      background: #a7a7a7;
     }
+  }
 
-    i {
-        padding-right: 8px;
-        display: flex;
-        align-items: center;
-    }
+  i {
+    padding-right: 8px;
+    display: flex;
+    align-items: center;
+  }
 }
 
 .active {
-    background: #a7a7a7;
+  background: #a7a7a7;
 }
 
 .content {
-    padding: 20px;
+  padding: 20px;
 }
 
 .loader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+@media screen and (min-width: 1400px) {
+  .baseContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+  }
 }

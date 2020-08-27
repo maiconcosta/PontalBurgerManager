@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { trackPromise } from 'react-promise-tracker';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import store from '../../store';
+import { fetchAllItems } from '../../store/thunks/items';
 
 import './styles.scss';
 
-import api from '../../services/api';
-
-export default function Items() {
-  const [items, setItems] = useState([]);
-
+function Items({ items }) {
   useEffect(() => {
     trackPromise(
-      api.get('items', {
-      }).then((response) => {
-        setItems(response.data);
-      }),
+      store.dispatch(fetchAllItems()),
     );
   }, []);
 
@@ -43,3 +40,15 @@ export default function Items() {
     </div>
   );
 }
+
+Items.propTypes = {
+  items: PropTypes.shape.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  items: state.items,
+});
+
+export default connect(
+  mapStateToProps,
+)(Items);
